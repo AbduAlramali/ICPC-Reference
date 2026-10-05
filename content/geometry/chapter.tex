@@ -15,6 +15,41 @@
 	\kactlimport{LineProjectionReflection.h}
 	\kactlimport{Angle.h}
 
+	\columnbreak
+
+	\subsection{Dot Product \& Angle Classification}
+		For vectors $A$ and $B$, $A \cdot B = A_x B_x + A_y B_y = |A||B|\cos(\theta)$.
+		Useful for classifying angles:
+		\begin{itemize}
+			\item Acute ($< 90^\circ$): $A \cdot B > 0$
+			\item Obtuse ($> 90^\circ$): $A \cdot B < 0$
+			\item Orthogonal ($90^\circ$): $A \cdot B = 0$
+		\end{itemize}
+
+	\subsection{Vector Projection}
+		The length of the projection of vector $A$ onto vector $B$ is:
+		\[ \text{Proj} = \frac{A \cdot B}{|B|} \]
+
+	\subsection{Point \& Line/Segment Distance}
+		Shortest distance from point $P$ to infinite line passing through $A$ and $B$:
+		\[ d = \frac{|(B-A) \times (P-A)|}{|B-A|} \]
+		Shortest distance from $P$ to finite segment $AB$ (using dot product):
+		\begin{itemize}
+			\item Closest to $A$ if $(P-A) \cdot (B-A) \le 0$
+			\item Closest to $B$ if $(P-B) \cdot (A-B) \le 0$
+			\item Otherwise: projection falls inside segment, use line distance formula.
+		\end{itemize}
+
+	\subsection{Segment \& Point Tests}
+		Point $P$ strictly on segment $AB$ if collinear and projection lies between endpoints:
+		\begin{itemize}
+			\item Collinear test: $(B-A) \times (P-A) = 0$
+			\item Bounding test: $(A-P) \cdot (B-P) \le 0$
+		\end{itemize}
+		Segment intersection (Straddle Test): $AB$ and $CD$ intersect iff:
+		\[ ((B-A) \times (C-A)) \cdot ((B-A) \times (D-A)) \le 0 \]
+		(Apply symmetrically for $CD$ against $A$ and $B$ to confirm intersection).
+
 \section{Circles}
 	% \kactlimport{Circle.h}
 	\kactlimport{CircleIntersection.h}
@@ -26,6 +61,14 @@
 	\kactlimport{circumcircle.h}
 	\kactlimport{Incenter.h}
 	\kactlimport{MinimumEnclosingCircle.h}
+
+	\par\vspace{5pt}
+	\subsection{Circle Visibility \& Tangency}
+		For a circle of radius $r$ centered at the origin:
+		\begin{itemize}
+			\item Polar line connecting two tangent points from external point $A$: $A \cdot P = r^2$
+			\item Any point $B$ on the circle visible to $A$ satisfies: $A \cdot B \ge r^2$
+		\end{itemize}
 
 \section{Polygons}
 	% \kactlimport{Polygon.h}

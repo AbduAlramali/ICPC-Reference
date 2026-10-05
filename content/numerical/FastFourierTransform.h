@@ -21,6 +21,8 @@
 
 typedef complex<double> C;
 typedef vector<double> vd;
+typedef long long ll;
+typedef vector<ll> vl;
 void fft(vector<C>& a) {
 	int n = sz(a), L = 31 - __builtin_clz(n);
 	static vector<complex<long double>> R(2, 1);
@@ -55,4 +57,18 @@ vd conv(const vd& a, const vd& b) {
 	fft(out);
 	rep(i,0,sz(res)) res[i] = imag(out[i]) / (4 * n);
 	return res;
+}
+vl conv(const vl& a, const vl& b) {
+    if (a.empty() || b.empty()) return {};
+    vl res(sz(a) + sz(b) - 1);
+    int L = 32 - __builtin_clz(sz(res)), n = 1 << L;
+    vector<C> in(n), out(n);
+    rep(i,0,sz(a)) in[i].real(a[i]);
+    rep(i,0,sz(b)) in[i].imag(b[i]);
+    fft(in);
+    for (C& x : in) x *= x;
+    rep(i,0,n) out[i] = in[-i & (n - 1)] - conj(in[i]);
+    fft(out);
+    rep(i,0,sz(res)) res[i] = (ll)llround(imag(out[i]) / (4 * n));
+    return res;
 }
